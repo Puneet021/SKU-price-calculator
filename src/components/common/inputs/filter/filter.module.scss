@@ -1,0 +1,100 @@
+@import "./../../../../style/index.scss";
+
+.box {
+  width: 24%;
+  @include display-flex(column);
+  .selector {
+    width: 100%;
+    .label {
+      color: white;
+      white-space: nowrap;
+      font-size: 1em;
+    }
+    .selectField {
+      position: relative;
+      @include display-flex($justify: space-between, $align: center);
+      cursor: pointer;
+      width: $fullScreen;
+      height: 2em;
+      background-color: $filterInput;
+      color: $white;
+      padding: 0 1.2em 0 $lg;
+      margin-top: $md;
+      transition: 0.2s;
+      &:hover {
+        background-color: $filterHover;
+      }
+      .icon {
+        height: 0.7em;
+        width: 0.9em;
+        transition: 0.2s;
+      }
+      .iconup {
+        transform: rotate(180deg);
+        height: 0.7em;
+        width: 0.9em;
+        transition: 0.2s;
+      }
+    }
+    .menu,
+    .menuForSearch {
+      z-index: 2;
+      position: absolute;
+      top: 5.296em;
+      left: 0;
+      width: 100%;
+      max-height: 20em;
+      overflow-y: overlay;
+      overflow-x: hidden;
+      background-color: $filterInput;
+      list-style: none;
+      box-sizing: border-box;
+      border-radius: 0 0 6px 6px;
+      padding-right: 0;
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: $frenchGrey;
+        opacity: 0.9;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: $silverGrey;
+        opacity: 1;
+      }
+      .menuSearch {
+        cursor: text;
+        padding: 0.4em 0.5em;
+        font-size: $xl;
+        border-bottom: 1px solid white;
+        .searchInput {
+          // width: 96%;
+          height: 2em;
+          font-size: 0.9em;
+          outline: none;
+          border: none;
+          border-radius: 8px;
+          padding: 0 $sm;
+          background-color: $filterInput;
+          color: $white;
+          &::placeholder {
+            color: $white;
+          }
+        }
+      }
+      .menuItem {
+        padding: 0.5em 1.2em;
+        font-size: $xl;
+        border-bottom: 1px solid white;
+      }
+      .menuItem:hover {
+        background-color: $filterHover;
+      }
+    }
+    .menuForSearch {
+      top: 2.3em;
+      border-radius: 6px 6px 0 0;
+    }
+  }
+}

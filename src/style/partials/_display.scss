@@ -1,0 +1,15 @@
+@mixin display-flex($direction: row, $justify: none, $align: none) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  box-sizing: border-box;
+}
+
+@mixin box-display {
+  margin-top: 2em;
+  width: 100%;
+  border: 1px solid #A5F504;
+  padding: 0.5em;
+  box-sizing: border-box;
+}

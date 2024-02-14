@@ -1,0 +1,25 @@
+@import "./../../../../style/index.scss";
+
+.btn,
+.btnDis {
+  border: none;
+  outline: none;
+  font-size: 1em;
+  color: white;
+  border-radius: 6px;
+  padding: 0.52em 0.8em;
+}
+.btn {
+  cursor: pointer;
+  background-color: #0ba10b;
+  transition: all 0.2s;
+  &:hover {
+    background-color: #0ec40e;
+    transition: all 0.2s;
+  }
+}
+.btnDis {
+  background-color: $neutralGrey;
+  // pointer-events: none;
+  cursor: not-allowed;
+}
