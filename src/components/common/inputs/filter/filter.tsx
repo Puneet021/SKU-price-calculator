@@ -36,10 +36,22 @@ class Filter extends Component<FilterProps, FilterStates> {
 
   componentDidMount() {
     this.setToDefault();
+    const selected = this.props.data.items.filter((item) => item.selected);
     this.setState({
-      currentChoice:
-        this.props.noDefaultVal === true ? -1 : this.state.currentChoice,
+      currentChoice: selected.length ? selected[0].value : -1,
     });
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<FilterProps>,
+    prevState: Readonly<FilterStates>
+  ): void {
+    if (prevProps.data.items !== this.props.data.items) {
+      const selected = this.props.data.items.filter((item) => item.selected);
+      this.setState({
+        currentChoice: selected.length ? selected[0].value : -1,
+      });
+    }
   }
 
   setToDefault() {
@@ -80,12 +92,17 @@ class Filter extends Component<FilterProps, FilterStates> {
     const {
       data: { label, items },
       customWidth,
+      disabled,
     } = this.props;
     const { isMenuOpen, currentChoice, filteredItems } = this.state;
     return (
       <div
         className={styles.box}
-        style={{ width: customWidth ? customWidth : "" }}
+        style={{
+          width: customWidth ? customWidth : "",
+          pointerEvents: disabled === true ? "none" : "all",
+          opacity: disabled === true ? 0.7 : 1,
+        }}
       >
         <div className={styles.selector}>
           <label htmlFor="filter" className={styles.label}>
@@ -96,7 +113,9 @@ class Filter extends Component<FilterProps, FilterStates> {
             className={styles.selectField}
             onClick={this.menuToggle}
           >
-            <p>{currentChoice === -1 ? "Select":items[currentChoice]?.name}</p>
+            <p>
+              {currentChoice === -1 ? "Select" : items[currentChoice]?.name}
+            </p>
             <img
               src={arrow}
               alt="arrow"

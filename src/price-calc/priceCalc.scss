@@ -2,7 +2,7 @@
   background-color: black;
   width: 100vw;
   height: 100vh;
-  padding: 2em 2em 0 3em;
+  padding: 2em 4em 0 4em;
   box-sizing: border-box;
   .tabs {
     display: flex;
@@ -10,9 +10,22 @@
   }
   .filters {
     margin-top: 2em;
-    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .actionBtns {
+    margin-top: 3em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2em;
+  }
+  .table {
+    margin-top: 3em;
+    width: 100%;
+    border: 1px solid #a5f504;
+    padding: 0.5em;
+    box-sizing: border-box;
   }
 }

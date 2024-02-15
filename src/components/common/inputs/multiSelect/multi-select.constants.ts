@@ -1,21 +1,17 @@
+import { FilterItemC } from "../../../../models/filterItem.model";
+
 export interface IMultiSelectProps {
   customWidth?: string;
   data: {
     label: string;
-    items: FilterItem[];
+    items: FilterItemC[];
   };
   setChecked: (ind: number, val: boolean) => void;
 }
 export interface IMultiSelectStates {
   isMenuOpen: boolean;
-  filteredItems: FilterItem[];
-  originalItems: FilterItem[];
-  selectedItems: FilterItem[];
+  filteredItems: FilterItemC[];
+  originalItems: FilterItemC[];
+  selectedItems: FilterItemC[];
   searchVal: string;
 }
-
-type FilterItem = {
-  id: number;
-  name: string;
-  checked: boolean;
-};

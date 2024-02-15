@@ -1,3 +1,5 @@
+import { FilterItem } from "../../../../models/filterItem.model";
+
 export type FilterProps = {
   customWidth?: string;
   data: {
@@ -5,17 +7,11 @@ export type FilterProps = {
     items: FilterItem[];
   };
   setChoice: (val: string) => void;
-  noDefaultVal?: boolean;
+  disabled?: boolean;
 };
 
 export type FilterStates = {
   isMenuOpen: boolean;
   currentChoice: number;
   filteredItems: FilterItem[];
-};
-
-export type FilterItem = {
-  id: number;
-  value: number;
-  name: string;
 };

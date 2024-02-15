@@ -1,0 +1,22 @@
+.tableContainer {
+  background-color: black;
+  .tableHead {
+    background-color: black;
+    border-bottom: 2px solid #2a8703;
+  }
+  .tableRow {
+    border: none;
+  }
+  .tableCell {
+    border: none;
+    color: white;
+    border-right: 1px solid rgb(136, 136, 136);
+    border-bottom: 1px solid rgb(136, 136, 136);
+    padding: 1em;
+    font-size: 0.9em;
+  }
+  .tableBody {
+    background-color: #1a1916;
+    position: relative;
+  }
+}
