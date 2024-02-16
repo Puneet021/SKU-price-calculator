@@ -1,22 +1,29 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ClickButton from "../components/common/buttons/clickButton/clickButton";
 import Filter from "../components/common/inputs/filter/filter";
 import MultiSelect from "../components/common/inputs/multiSelect/multi-select";
 import "./priceCalc.scss";
 import { IStore } from "../models/store.model";
 import {
+  fetchAsyncTableData,
   resetFilters,
   setDeliveryComplexityFilterSelect,
   setPhasesChecked,
   setSkuFilterSelect,
 } from "../store/price-calc/priceCalcSlice";
 import DataTable from "../components/common/table/table";
+import { useEffect } from "react";
+import { useAppDispatch } from "../store/useDispatch";
 
 const PriceCalc = () => {
-  const { skuFilterData, phasesFilterData, deliveryComplexityFilterData } =
-    useSelector((store: IStore) => store.priceCalc);
-  const dispatch = useDispatch();
-
+  const {
+    skuFilterData,
+    phasesFilterData,
+    deliveryComplexityFilterData,
+    tableData,
+  } = useSelector((store: IStore) => store.priceCalc);
+  const dispatch = useAppDispatch();
+  dispatch(fetchAsyncTableData());
   return (
     <div className="mainContainer">
       <div className="tabs">
@@ -59,9 +66,11 @@ const PriceCalc = () => {
         />
         <ClickButton text="Proceed" handleClick={() => {}} disabled={false} />
       </div>
-      <div className="table">
-        <DataTable />
-      </div>
+      {tableData?.length ? (
+        <div className="table">
+          <DataTable rows={tableData} />
+        </div>
+      ) : null}
     </div>
   );
 };

@@ -1,0 +1,28 @@
+[
+  {
+    "skuId": 0,
+    "skuName": "Mobile App Development",
+    "data": [
+      {
+        "id": 0,
+        "skuOfferings": "Mobile App Development",
+        "inScopePhases": "Define",
+        "scopePhasesIncluded": "No",
+        "deliveryVelocity": "",
+        "adjustedDuration": "0",
+        "architect": "1",
+        "engMgmt": "",
+        "softwareEngineer": "",
+        "devops": "",
+        "integrationEng": "",
+        "design": 1.5,
+        "qa": "",
+        "productMgmt": 2.5,
+        "projectMgmt": "",
+        "totalFte": 5,
+        "feesPerPhase": "",
+        "totalFees": ""
+      }
+    ]
+  }
+]

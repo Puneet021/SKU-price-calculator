@@ -14,5 +14,6 @@ export interface IStore {
       label: string;
       items: FilterItem[];
     };
+    tableData: any[];
   };
 }

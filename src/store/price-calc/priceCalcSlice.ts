@@ -14,6 +14,7 @@ const initialState: {
     label: string;
     items: FilterItem[];
   };
+  tableData: any[];
 } = {
   phasesFilterData: {
     label: "In-Scope Phases",
@@ -38,12 +39,16 @@ const initialState: {
       { id: 2, value: 2, name: "High", selected: false },
     ],
   },
+  tableData: [],
 };
 
-export const asyncLoginThunk = createAsyncThunk(
-  "priceCalc/asyncLoginThunk",
+export const fetchAsyncTableData = createAsyncThunk(
+  "priceCalc/fetchAsyncTableData",
   async () => {
-    return "";
+    const response = await fetch("data.json")
+      .then((res) => res.json())
+      .then((res) => res[0].data);
+    return response;
   }
 );
 
@@ -83,8 +88,8 @@ const priceCalcSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(asyncLoginThunk.fulfilled, (state) => {
-      window.location.pathname = "/";
+    builder.addCase(fetchAsyncTableData.fulfilled, (state, { payload }) => {
+      state.tableData = payload;
     });
   },
 });
