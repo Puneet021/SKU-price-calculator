@@ -44,11 +44,17 @@ const initialState: {
 
 export const fetchAsyncTableData = createAsyncThunk(
   "priceCalc/fetchAsyncTableData",
-  async () => {
-    const response = await fetch("data.json")
-      .then((res) => res.json())
-      .then((res) => res[0].data);
-    return response;
+  async (_, thunkAPI) => {
+    try {
+      const response = await fetch("data.json")
+        .then((res) => res.json())
+        .then((res) => res[0].data);
+      console.log("pppppp", response);
+
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ errorMessage: error });
+    }
   }
 );
 

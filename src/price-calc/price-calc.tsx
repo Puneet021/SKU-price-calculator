@@ -12,6 +12,7 @@ import {
   setSkuFilterSelect,
 } from "../store/price-calc/priceCalcSlice";
 import DataTable from "../components/common/table/table";
+import { useEffect } from "react";
 import { useAppDispatch } from "../store/useDispatch";
 
 const PriceCalc = () => {
@@ -22,7 +23,9 @@ const PriceCalc = () => {
     tableData,
   } = useSelector((store: IStore) => store.priceCalc);
   const dispatch = useAppDispatch();
-  dispatch(fetchAsyncTableData());
+  useEffect(() => {
+    dispatch(fetchAsyncTableData());
+  }, [dispatch]);
   return (
     <div className="mainContainer">
       <div className="tabs">

@@ -42,15 +42,19 @@ export default function DataTable(props: { rows: any }) {
             >
               {Object.entries(row)
                 ?.filter((i) => i[0] !== "id")
-                .map((rowItem, ind) => {
+                .map((rowItem: any) => {
                   return (
                     <TableCell
-                      key={`${row.id}_${rowItem[0]}_${ind}`}
+                      key={`${row.id}_${rowItem[0]}`}
                       className={styles.tableCell}
                       component="th"
                       scope="row"
+                      align={typeof rowItem[1] === "number" ? "right" : "left"}
+                      style={{
+                        borderRight: rowItem[0] === "totalFees" ? 0 : "",
+                      }}
                     >
-                      {row.name}
+                      {rowItem[1]}
                     </TableCell>
                   );
                 })}
