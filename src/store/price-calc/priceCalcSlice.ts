@@ -14,32 +14,23 @@ const initialState: {
     label: string;
     items: FilterItem[];
   };
-  tableData: any[];
+  tableData: any;
+  filteredTableData: any[];
 } = {
   phasesFilterData: {
     label: "In-Scope Phases",
-    items: [
-      { id: 0, checked: false, name: "Define" },
-      { id: 1, checked: false, name: "Shape" },
-      { id: 2, checked: false, name: "Build" },
-      { id: 3, checked: false, name: "Scale" },
-    ],
+    items: [],
   },
   skuFilterData: {
     label: "SKUs Offered",
-    items: [
-      { id: 0, value: 0, name: "Mobile App Development", selected: false },
-    ],
+    items: [],
   },
   deliveryComplexityFilterData: {
     label: "Delivery Complexity",
-    items: [
-      { id: 0, value: 0, name: "Low", selected: false },
-      { id: 1, value: 1, name: "Medium", selected: false },
-      { id: 2, value: 2, name: "High", selected: false },
-    ],
+    items: [],
   },
-  tableData: [],
+  tableData: {},
+  filteredTableData: [],
 };
 
 export const fetchAsyncTableData = createAsyncThunk(
@@ -48,15 +39,23 @@ export const fetchAsyncTableData = createAsyncThunk(
     try {
       const response = await fetch("data.json")
         .then((res) => res.json())
-        .then((res) => res[0].data);
-      console.log("pppppp", response);
-
+        .then((res) => res);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue({ errorMessage: error });
     }
   }
 );
+
+function uniqueArray(arr: any[]): any[] {
+  const uniqueArr: any[] = [];
+  for (const item of arr) {
+    if (!uniqueArr.includes(item)) {
+      uniqueArr.push(item);
+    }
+  }
+  return uniqueArr;
+}
 
 const priceCalcSlice = createSlice({
   name: "priceCalc",
@@ -67,6 +66,16 @@ const priceCalcSlice = createSlice({
         ...item,
         selected: item.name === payload.name,
       }));
+      const phases = state.tableData[payload.name].data.map(
+        (item: any) => item.inScopePhases
+      );
+      state.phasesFilterData.items = uniqueArray(phases).map(
+        (item: any, ind: number) => ({
+          id: ind,
+          checked: false,
+          name: item,
+        })
+      );
     },
     setPhasesChecked: (
       state,
@@ -75,6 +84,23 @@ const priceCalcSlice = createSlice({
       state.phasesFilterData.items.filter(
         (item) => item.id === payload.id
       )[0].checked = payload.isChecked;
+      const selectedSku = state.skuFilterData.items.filter(
+        (item) => item.selected
+      )[0].name;
+      const phases = state.phasesFilterData.items
+        .filter((item) => item.checked)
+        .map((item) => item.name);
+      const complexity = state.tableData[selectedSku].data
+        .filter((item: any) => phases.includes(item.inScopePhases))
+        .map((item: any) => item.deliveryVelocity);
+      state.deliveryComplexityFilterData.items = uniqueArray(complexity).map(
+        (item, ind) => ({
+          id: ind,
+          value: ind,
+          name: item,
+          selected: false,
+        })
+      );
     },
     setDeliveryComplexityFilterSelect: (
       state,
@@ -86,16 +112,52 @@ const priceCalcSlice = createSlice({
           selected: item.name === payload.name,
         }));
     },
+    setFilteredData: (
+      state,
+      action: {
+        payload: {
+          skuFilterVal: string;
+          phasesFilterVal: Array<string>;
+          complexityFilterVal: string;
+        };
+      }
+    ) => {
+      state.filteredTableData = state.tableData[
+        action.payload.skuFilterVal
+      ].data
+        .filter((item: any) =>
+          action.payload.phasesFilterVal.includes(item.inScopePhases)
+        )
+        .filter(
+          (item: any) =>
+            item.deliveryVelocity === action.payload.complexityFilterVal
+        );
+      state.filteredTableData[0].skuOfferings = action.payload.skuFilterVal;
+    },
     resetFilters: (state) => {
       state.skuFilterData = initialState.skuFilterData;
       state.phasesFilterData = initialState.phasesFilterData;
       state.deliveryComplexityFilterData =
         initialState.deliveryComplexityFilterData;
+      state.tableData = [];
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncTableData.fulfilled, (state, { payload }) => {
       state.tableData = payload;
+      state.skuFilterData.items = Object.keys(payload).map(
+        (key: string, ind: number) => ({
+          id: ind,
+          value: ind,
+          name: key,
+          selected: false,
+        })
+      );
+    });
+    builder.addCase(fetchAsyncTableData.rejected, (state, error) => {
+      console.log("Error while fetching table data", error);
+      state.tableData = [];
+      state.filteredTableData = [];
     });
   },
 });
@@ -105,5 +167,6 @@ export const {
   resetFilters,
   setSkuFilterSelect,
   setDeliveryComplexityFilterSelect,
+  setFilteredData,
 } = priceCalcSlice.actions;
 export default priceCalcSlice.reducer;

@@ -1,14 +1,14 @@
-[
-  {
+{
+  "Mobile App Development": {
     "skuId": 0,
     "skuName": "Mobile App Development",
     "data": [
       {
         "id": 0,
-        "skuOfferings": "Mobile App Development",
+        "skuOfferings": "",
         "inScopePhases": "Define",
         "scopePhasesIncluded": "No",
-        "deliveryVelocity": "",
+        "deliveryVelocity": "Low",
         "adjustedDuration": "0",
         "architect": "1",
         "engMgmt": "",
@@ -28,7 +28,7 @@
         "skuOfferings": "",
         "inScopePhases": "Shape",
         "scopePhasesIncluded": "No",
-        "deliveryVelocity": "",
+        "deliveryVelocity": "Low",
         "adjustedDuration": "0",
         "architect": "1",
         "engMgmt": "",
@@ -48,7 +48,7 @@
         "skuOfferings": "",
         "inScopePhases": "Build",
         "scopePhasesIncluded": "No",
-        "deliveryVelocity": "",
+        "deliveryVelocity": "Medium",
         "adjustedDuration": "0",
         "architect": "1",
         "engMgmt": "",
@@ -68,7 +68,7 @@
         "skuOfferings": "",
         "inScopePhases": "Scale",
         "scopePhasesIncluded": "No",
-        "deliveryVelocity": "",
+        "deliveryVelocity": "High",
         "adjustedDuration": "0",
         "architect": "1",
         "engMgmt": "",
@@ -85,4 +85,4 @@
       }
     ]
   }
-]
+}

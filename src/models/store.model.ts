@@ -15,5 +15,6 @@ export interface IStore {
       items: FilterItem[];
     };
     tableData: any[];
+    filteredTableData: any[];
   };
 }

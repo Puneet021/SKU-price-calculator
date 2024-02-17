@@ -7,6 +7,7 @@ export interface IMultiSelectProps {
     items: FilterItemC[];
   };
   setChecked: (ind: number, val: boolean) => void;
+  disabled?: boolean;
 }
 export interface IMultiSelectStates {
   isMenuOpen: boolean;

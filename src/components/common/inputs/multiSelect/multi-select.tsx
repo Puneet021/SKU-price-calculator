@@ -91,12 +91,17 @@ class MultiSelect extends Component<IMultiSelectProps, IMultiSelectStates> {
     const {
       data: { label, items },
       customWidth,
+      disabled,
     } = this.props;
     const { isMenuOpen, filteredItems, selectedItems } = this.state;
     return (
       <div
         className={styles.box}
-        style={{ width: customWidth ? customWidth : "" }}
+        style={{
+          width: customWidth ? customWidth : "",
+          pointerEvents: disabled === true ? "none" : "all",
+          opacity: disabled === true ? 0.7 : 1,
+        }}
       >
         <div className={styles.selector}>
           <label htmlFor="filter" className={styles.label}>
