@@ -140,6 +140,7 @@ const priceCalcSlice = createSlice({
       state.deliveryComplexityFilterData =
         initialState.deliveryComplexityFilterData;
       state.tableData = [];
+      state.filteredTableData = [];
     },
   },
   extraReducers: (builder) => {
